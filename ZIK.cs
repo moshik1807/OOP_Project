@@ -1,8 +1,72 @@
 ﻿using System;
-
-public class Class1
+namespace IDF.model
 {
-	public Class1()
-	{
-	}
+    public class ZIK : AttackOptions
+    {
+
+        public ZIK(string name, int numberOfAttacks, int fuelInTheTank, string efficiency) : base(name, numberOfAttacks, fuelInTheTank, efficiency)
+        {
+
+        }
+
+
+
+        // שולח לבדיקת דלק ותחמושת ומחזיר הודעה מתאימה
+        public override void Attack(int FlightHours, int AttacksNumber)
+        {
+            bool resulte = true;
+            fuel(FlightHours);
+            munitions(AttacksNumber);
+            if (DateTime.Now < refueling)
+            {
+                resulte = false;
+                Console.WriteLine("The zik remains in refueling for x minutes.");
+            }
+            if (DateTime.Now < armament)
+            {
+                resulte = false;
+                Console.WriteLine("The zik is arming and remains x minutes.");
+            }
+            if (resulte)
+            {
+                Console.WriteLine("The zik goes on the attack.");
+                FuelInTheTank -= (FlightHours * 2400);
+                NumberOfAttacks -= AttacksNumber;
+            }
+        }
+
+        // מקבלת שעות טיסה נצרכות למשימה,בודקת אם יש מספיק דלק,במידה ולא שולחת לתדלוק
+        public bool fuel(int FlightHours)
+        {
+            if (FuelInTheTank >= (FlightHours * 200))
+            {
+                return true;
+            }
+            else
+            {
+                refueling = DateTime.Now.AddMinutes(30);
+                FuelInTheTank += (200 - FuelInTheTank);
+                return false;
+            }
+
+        }
+
+        // מקבלת מספר התקפות שנצרכות למשימה,בודקת אם יש מספיק תחמושת,במידה ולא שולחת לחימוש
+
+        public bool munitions(int AttacksNumber)
+        {
+            if (NumberOfAttacks >= AttacksNumber)
+            {
+                return true;
+            }
+            else
+            {
+                armament = DateTime.Now.AddMinutes(45);
+                NumberOfAttacks += (3 - NumberOfAttacks);
+                return false;
+            }
+        }
+
+
+    }
 }

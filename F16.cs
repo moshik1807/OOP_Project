@@ -11,7 +11,7 @@ namespace IDF.model
 
 
 
-        // 
+        // שולח לבדיחת תחמושת ודלק ומחזיר הודעה מתאימה
         public override void Attack(int FlightHours, int AttacksNumber)
         {
             bool resulte = true;
@@ -62,7 +62,7 @@ namespace IDF.model
             else
             {
                 armament = DateTime.Now.AddMinutes(30);
-                NumberOfAttacks += (10 - NumberOfAttacks);
+                NumberOfAttacks += (8 - NumberOfAttacks);
                 return false;
             }
         }

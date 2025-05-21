@@ -19,6 +19,8 @@
             s.refueling.ToString();
             Console.WriteLine(s.refueling.ToString());
             s.Attack(1, 4);
+            ZIK x = new ZIK("a", 3, 200, "5");
+            x.Attack(1,2);
         }
     }
 
