@@ -2,13 +2,13 @@
 {
     public class Idf
     {
-        int DateOfEstablishment;
+       public int DateOfEstablishment;
        private string _Commander;
-        List<int> AttackTool;
+       public List<int> AttackTool;
 
         public  Idf(List<int> attackTool, string commander = "eyal zamir")
         {
-            DateOfEstablishment = 10;
+            DateOfEstablishment = 1948;
             _Commander = commander;
             AttackTool = attackTool;
         }
