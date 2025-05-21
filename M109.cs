@@ -1,10 +1,10 @@
 ﻿using System;
 namespace IDF.model
 {
-    public class ZIK : AttackOptions
+    public class M109 : AttackOptions
     {
 
-        public ZIK(string name, int numberOfAttacks, int fuelInTheTank, string efficiency) : base(name, numberOfAttacks, fuelInTheTank, efficiency)
+        public M109(string name, int numberOfAttacks, int fuelInTheTank, string efficiency) : base(name, numberOfAttacks, fuelInTheTank, efficiency)
         {
 
         }
