@@ -20,17 +20,17 @@ namespace IDF.model
             if (DateTime.Now < refueling)
             {
                 resulte = false;
-                Console.WriteLine("The zik remains in refueling for x minutes.");
+                Console.WriteLine("The M109 remains in refueling for x minutes.");
             }
             if (DateTime.Now < armament)
             {
                 resulte = false;
-                Console.WriteLine("The zik is arming and remains x minutes.");
+                Console.WriteLine("The M109 is arming and remains x minutes.");
             }
             if (resulte)
             {
-                Console.WriteLine("The zik goes on the attack.");
-                FuelInTheTank -= (FlightHours * 200);
+                Console.WriteLine("The M109 goes on the attack.");
+                FuelInTheTank -= (FlightHours * 100);
                 NumberOfAttacks -= AttacksNumber;
             }
         }
@@ -38,14 +38,14 @@ namespace IDF.model
         // מקבלת שעות טיסה נצרכות למשימה,בודקת אם יש מספיק דלק,במידה ולא שולחת לתדלוק
         public bool fuel(int FlightHours)
         {
-            if (FuelInTheTank >= (FlightHours * 200))
+            if (FuelInTheTank >= (FlightHours * 100))
             {
                 return true;
             }
             else
             {
                 refueling = DateTime.Now.AddMinutes(30);
-                FuelInTheTank += (2400 - FuelInTheTank);
+                FuelInTheTank += (450 - FuelInTheTank);
                 return false;
             }
 
@@ -61,8 +61,8 @@ namespace IDF.model
             }
             else
             {
-                armament = DateTime.Now.AddMinutes(45);
-                NumberOfAttacks += (3 - NumberOfAttacks);
+                armament = DateTime.Now.AddMinutes(40);
+                NumberOfAttacks += (40 - NumberOfAttacks);
                 return false;
             }
         }
@@ -70,3 +70,4 @@ namespace IDF.model
 
     }
 }
+
