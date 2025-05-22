@@ -20,7 +20,6 @@ namespace IDF.model
             armament = Armament;
         }
         public abstract void Attack(int FlightHours,int AttacksNumber);
-        //public abstract void FuelCheck();
 
     }
  
