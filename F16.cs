@@ -52,7 +52,7 @@ namespace IDF.model
         }
 
         // מקבלת מספר התקפות שנצרכות למשימה,בודקת אם יש מספיק תחמושת,במידה ולא שולחת לחימוש
-
+        
         public bool munitions(int AttacksNumber)
         {
             if (NumberOfAttacks >= AttacksNumber)
