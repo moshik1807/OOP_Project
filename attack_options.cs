@@ -10,7 +10,7 @@ namespace IDF.model
         public DateTime? refueling;
         public DateTime? armament;
 
-        public AttackOptions(string name,int numberOfAttacks,int fuelInTheTank,string efficiency,DateTime? Refueling = null,DateTime? Armament = null)
+        public AttackOptions(string name, int numberOfAttacks,int fuelInTheTank,string efficiency, DateTime? Refueling = null,DateTime? Armament = null)
         {
             Name = name;
             NumberOfAttacks = numberOfAttacks;

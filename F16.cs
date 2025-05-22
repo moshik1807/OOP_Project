@@ -4,7 +4,7 @@ namespace IDF.model
     public class F16 : AttackOptions
     {
 
-        public F16(string name, int numberOfAttacks, int fuelInTheTank, string efficiency) : base(name, numberOfAttacks, fuelInTheTank, efficiency)
+        public F16(string name, int numberOfAttacks, int fuelInTheTank, string efficiency  ) : base(name, numberOfAttacks, fuelInTheTank, efficiency )
         {
 
         }
@@ -20,12 +20,12 @@ namespace IDF.model
             if (DateTime.Now < refueling)
             {
                 resulte = false;
-                Console.WriteLine("The plane remains in refueling for x minutes.");
+                Console.WriteLine($"The plane remains in refueling for {refueling - DateTime.Now} minutes.");
             }
             if (DateTime.Now < armament)
             {
                 resulte = false;
-                Console.WriteLine("The plane is arming and remains x minutes.");
+                Console.WriteLine($"The plane is arming and remains {armament - DateTime.Now} minutes.");
             }
             if (resulte)
             {

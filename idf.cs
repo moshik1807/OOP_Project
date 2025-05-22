@@ -4,9 +4,9 @@
     {
        public int DateOfEstablishment;
        private string _Commander;
-       public List<int> AttackTool;
+       public List<AttackOptions> AttackTool;
 
-        public  Idf(List<int> attackTool, string commander = "eyal zamir")
+        public  Idf(List<AttackOptions> attackTool, string commander = "eyal zamir")
         {
             DateOfEstablishment = 1948;
             _Commander = commander;
@@ -17,7 +17,7 @@
             get { return _Commander; }
             set { _Commander = value; }
         }
-        public void AddToAttackTool(int x)
+        public void AddToAttackTool(AttackOptions x)
         {
             AttackTool.Add(x);
         }

@@ -20,12 +20,12 @@ namespace IDF.model
             if (DateTime.Now < refueling)
             {
                 resulte = false;
-                Console.WriteLine("The M109 remains in refueling for x minutes.");
+                Console.WriteLine($"The M109 remains in refueling for {refueling - DateTime.Now} minutes.");
             }
             if (DateTime.Now < armament)
             {
                 resulte = false;
-                Console.WriteLine("The M109 is arming and remains x minutes.");
+                Console.WriteLine($"The M109 is arming and remains {armament - DateTime.Now} minutes.");
             }
             if (resulte)
             {
