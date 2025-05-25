@@ -9,7 +9,42 @@
             ZIK zik = new ZIK("zik", 3, 2400, "Open space, car");
             M109 m109 = new M109("m109", 40, 450, "Open space");
             Idf idf = new Idf([f16,zik,m109]);
+<<<<<<< HEAD
                     
+=======
+
+
+            List<string> weaponst1 = new List<string> { "guns", "M16" };
+            Terrorist t1 = new Terrorist("Abu-Yair", 4, true, weaponst1);
+
+            List<string> weaponst2 = new List<string> { "Knife", "M16" };
+            Terrorist t2 = new Terrorist("chagai segal", 2, true, weaponst2);
+
+            List<string> weaponst3 = new List<string> { "guns", "M16" };
+            Terrorist t3 = new Terrorist("Abu-Yair", 4, true, weaponst1);
+
+            Hamas hamas = new Hamas("1987", "Unknown these days", new List<Terrorist>());
+            hamas.AddTerrorist(t1);
+            hamas.AddTerrorist(t2);
+            hamas.AddTerrorist(t3);
+
+            //foreach (Terrorist t in hamas.Terrorists)
+            //{
+            //    Console.WriteLine(t.Details());
+            //    Console.WriteLine("-------------");
+            //}
+
+            IntelligenceMessage intel1 = new IntelligenceMessage(t1, "home", DateTime.Now);
+            IntelligenceMessage intel2 = new IntelligenceMessage(t2, "outside", DateTime.Now);
+            IntelligenceMessage intel3 = new IntelligenceMessage(t3, "home", DateTime.Now);
+
+            AMAN Aman = new AMAN();
+            Aman.AddReport(intel1);
+            Aman.AddReport(intel2);
+            Aman.AddReport(intel3);
+
+
+>>>>>>> 3fece9a3a9ae4785115fa3c85a096db88a755b7e
             Menue();
 
             void Menue()
