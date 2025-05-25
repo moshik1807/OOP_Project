@@ -79,7 +79,7 @@
             }
             void MaximumNotifications()
             {
-                
+                Console.WriteLine(Aman.GetMostReportedTerrorist());
             }
 
             void AvailabilityOfTools()
