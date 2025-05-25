@@ -20,6 +20,8 @@ namespace IDF.model
             armament = Armament;
         }
         public abstract bool Attack(int FlightHours,int AttacksNumber);
+        public abstract bool fuelCheck(int FlightHours);
+        public abstract bool AmmunitionInspection(int AttacksNumber);
 
     }
  
