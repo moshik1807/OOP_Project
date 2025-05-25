@@ -18,10 +18,35 @@ namespace IDF.model
             return IntelligenceReports;
         }
 
-        //public Terrorist GetMostReportedTerrorist()
-        //{
+        public Terrorist GetMostReportedTerrorist()
+        {
+            if (IntelligenceReports.Count == 0)
+                return null;
 
-        //}
+            Dictionary<Terrorist, int> countMap = new Dictionary<Terrorist, int>();
+
+            foreach (var report in IntelligenceReports)
+            {
+                if (countMap.ContainsKey(report.Target))
+                    countMap[report.Target]++;
+                else
+                    countMap[report.Target] = 1;
+            }
+
+            Terrorist mostReported = null;
+            int maxReports = 0;
+
+            foreach (var pair in countMap)
+            {
+                if (pair.Value > maxReports)
+                {
+                    maxReports = pair.Value;
+                    mostReported = pair.Key;
+                }
+            }
+
+            return mostReported;
+        }
 
     }
 }
