@@ -9,7 +9,7 @@
             ZIK zik = new ZIK("zik", 3, 2400, "Open space, car");
             M109 m109 = new M109("m109", 40, 450, "Open space");
             Idf idf = new Idf([f16,zik,m109]);
-
+                    
             Menue();
 
             void Menue()
@@ -37,9 +37,9 @@
                         case 3:
                             PreferredTarget();
                             break;
-                        case 4:
-                            makingAnAttack();
-                            break;
+                        //case 4:
+                        //    makingAnAttack();
+                        //    break;
                         case 5:
                             exis = false;
                             break;
@@ -48,7 +48,7 @@
             }
             void MaximumNotifications()
             {
-                Console.WriteLine(f16);
+                
             }
 
             void AvailabilityOfTools()
@@ -59,9 +59,9 @@
                     {
                         Console.WriteLine($"The {tool.Name} at the refueling station will be ready in {tool.refueling - DateTime.Now} minutes.");
                     }
-                    else if(tool.armament > DateTime.Now)
+                    if(tool.armament > DateTime.Now)
                     {
-                        Console.WriteLine($" The {tool.Name} with its armament will be ready in {tool.refueling - DateTime.Now} minutes.");
+                        Console.WriteLine($" The {tool.Name} with its armament will be ready in {tool.armament - DateTime.Now} minutes.");
                     }
                     else
                     {
@@ -70,20 +70,52 @@
                 }
             }
 
-            void PreferredTarget()
+             void PreferredTarget()
             {
 
             }
 
-            void makingAnAttack()
+            void makingAnAttack(IntelligenceMessage perperredTarget)
             {
+                List<AttackOptions> newList = new List<AttackOptions>();
+                foreach (var tool in idf.AttackTool)
+                {
+                    if (tool.Efficiency.Contains(perperredTarget.LastKnownLocation))
+                    {
+                        newList.Add(tool);
+                    }
+                }
+                if (newList is not null)
+                {
+                    for (int i = 0; i >= newList.Count - 1; i++)
+                    {
+                        Console.WriteLine($"to attack with a {newList[i].Name} press {i}");
+                    }
+                    int x = int.Parse(Console.ReadLine());
+                    Console.WriteLine("enter the amount of atteck time");
+                    int attackTime = int.Parse(Console.ReadLine());
+                    Console.WriteLine("enter the amoount of ammunition for the  attack");
+                    int shots = int.Parse(Console.ReadLine());
+                    if (newList[x].Attack(attackTime, shots))
+                    {
+                        newList[x].Attack(attackTime, shots);
+                        perperredTarget.Target.IsAlive = false;
+                        
+
+
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("no atteck option available");
+                }
 
 
             }
 
         }
-        
-        
+
+
     }
 
 }
