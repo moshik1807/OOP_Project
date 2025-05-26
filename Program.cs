@@ -124,7 +124,7 @@
                 foreach (var tool in idf.AttackTool)
                 {
                     if (tool.Efficiency.Contains(perperredTarget.LastKnownLocation))
-                    {
+                    {// להכניס פה שיפור למקרה שאין מספיק דלק או תחמושת שיחומש אוטומטית ושליחת הודעה למשתמש שהכלי בתדלוק ונשאר לו זמן מסויים
                         
                         if (tool.fuelCheck(attackTime) && tool.AmmunitionInspection(shots))
                         {
