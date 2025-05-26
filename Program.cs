@@ -8,7 +8,7 @@
             F16 f16 = new F16("f16", 10, 5000, "building, house");
             ZIK zik = new ZIK("zik", 3, 2400, "open space, car");
             M109 m109 = new M109("m109", 40, 450, "open space");
-            Idf idf = new Idf([f16,zik,m109]);
+            Idf idf = new Idf([f16, zik, m109]);
 
             List<string> weaponst1 = new List<string> { "guns", "M16" };
             Terrorist t1 = new Terrorist("Abu-Yair", 4, true, weaponst1);
@@ -17,7 +17,7 @@
             Terrorist t2 = new Terrorist("chagai segal", 2, true, weaponst2);
 
             List<string> weaponst3 = new List<string> { "M16" };
-            Terrorist t3 = new Terrorist("Abu-x",5 , true, weaponst3);
+            Terrorist t3 = new Terrorist("Abu-x", 5, true, weaponst3);
 
             Hamas hamas = new Hamas("1987", "Unknown these days", new List<Terrorist>());
             hamas.AddTerrorist(t1);
@@ -38,8 +38,6 @@
             Aman.AddReport(intel1);
             Aman.AddReport(intel2);
             Aman.AddReport(intel3);
-
-
             Menue();
 
             void Menue()
@@ -84,13 +82,13 @@
 
             void AvailabilityOfTools()
             {
-                foreach(var tool in idf.AttackTool)
+                foreach (var tool in idf.AttackTool)
                 {
                     if (tool.refueling > DateTime.Now)
                     {
                         Console.WriteLine($"The {tool.Name} at the refueling station will be ready in {tool.refueling - DateTime.Now} minutes.");
                     }
-                    if(tool.armament > DateTime.Now)
+                    if (tool.armament > DateTime.Now)
                     {
                         Console.WriteLine($" The {tool.Name} with its armament will be ready in {tool.armament - DateTime.Now} minutes.");
                     }
@@ -127,18 +125,19 @@
                 {
                     if (tool.Efficiency.Contains(perperredTarget.LastKnownLocation))
                     {
-                        if (tool.fuelCheck(attackTime)&&tool.AmmunitionInspection(shots))
+                        
+                        if (tool.fuelCheck(attackTime) && tool.AmmunitionInspection(shots))
                         {
                             newList.Add(tool);
                         }
                     }
                 }
-                if(newList.Count==0)
+                if (newList.Count == 0)
                 {
                     Console.WriteLine("no atteck option available");
 
                 }
-                else 
+                else
                 {
                     for (int i = 0; i <= newList.Count - 1; i++)
                     {
