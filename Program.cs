@@ -101,18 +101,31 @@
 
             IntelligenceMessage PreferredTarget()
             {
-                int TheMostDangerous = 0;
-                IntelligenceMessage x = null;
-                foreach (var terrorist in Aman.IntelligenceReports)
+                int highestDangerLevel = 0;
+                IntelligenceMessage mostDangerousMessage = null;
+
+                foreach (var report in Aman.IntelligenceReports)
                 {
-                    if (terrorist.Target.TargetPrioritization() > TheMostDangerous)
+                    int dangerLevel = report.Target.TargetPrioritization();
+                    if (dangerLevel > highestDangerLevel)
                     {
-                        x = terrorist;
+                        highestDangerLevel = dangerLevel;
+                        mostDangerousMessage = report;
                     }
                 }
-                Console.WriteLine(x.Target.Name);
-                return x;
+
+                if (mostDangerousMessage != null)
+                {
+                    Console.WriteLine($"Most dangerous terrorist: {mostDangerousMessage.Target.Name}");
+                }
+                else
+                {
+                    Console.WriteLine("No terrorists left in the intelligence reports.");
+                }
+
+                return mostDangerousMessage;
             }
+
 
             void makingAnAttack(IntelligenceMessage perperredTarget)
             {
@@ -124,11 +137,25 @@
                 foreach (var tool in idf.AttackTool)
                 {
                     if (tool.Efficiency.Contains(perperredTarget.LastKnownLocation))
-                    {// להכניס פה שיפור למקרה שאין מספיק דלק או תחמושת שיחומש אוטומטית ושליחת הודעה למשתמש שהכלי בתדלוק ונשאר לו זמן מסויים
-                        
+                    {
+                   
                         if (tool.fuelCheck(attackTime) && tool.AmmunitionInspection(shots))
                         {
-                            newList.Add(tool);
+                            if (((tool.refueling<=DateTime.Now || tool.refueling == null) && (tool.armament<=DateTime.Now || tool.armament == null)))
+                            {
+                                newList.Add(tool);
+
+                            }
+                        }
+                        if(!tool.fuelCheck(attackTime))
+                        {
+                            tool.RefuelingTheTool();
+                            Console.WriteLine($"The {tool.Name} is refueling. It will be ready in {tool.refueling-DateTime.Now} minutes.");
+                        }
+                        if(!tool.AmmunitionInspection(shots))
+                        {
+                            tool.armingTheTool();
+                            Console.WriteLine($"The {tool.Name} is armed, it will be ready in {tool.armament-DateTime.Now} minutes.");
                         }
                     }
                 }
