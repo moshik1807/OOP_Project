@@ -71,5 +71,11 @@ namespace IDF.model
                 $"Danger Level:{RiskLevel}");
 
         }
+
+        public override string ToString()
+        {
+            return Details();
+        }
+
     }
 }
