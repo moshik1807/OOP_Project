@@ -22,6 +22,8 @@ namespace IDF.model
         public abstract bool Attack(int FlightHours,int AttacksNumber);
         public abstract bool fuelCheck(int FlightHours);
         public abstract bool AmmunitionInspection(int AttacksNumber);
+        public abstract void RefuelingTheTool();
+        public abstract void armingTheTool();
 
     }
  
