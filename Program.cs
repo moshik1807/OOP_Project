@@ -138,10 +138,24 @@
                 {
                     if (tool.Efficiency.Contains(perperredTarget.LastKnownLocation))
                     {
-                        
+                   
                         if (tool.fuelCheck(attackTime) && tool.AmmunitionInspection(shots))
                         {
-                            newList.Add(tool);
+                            if (((tool.refueling<=DateTime.Now || tool.refueling == null) && (tool.armament<=DateTime.Now || tool.armament == null)))
+                            {
+                                newList.Add(tool);
+
+                            }
+                        }
+                        if(!tool.fuelCheck(attackTime))
+                        {
+                            tool.RefuelingTheTool();
+                            Console.WriteLine($"The {tool.Name} is refueling. It will be ready in {tool.refueling-DateTime.Now} minutes.");
+                        }
+                        if(!tool.AmmunitionInspection(shots))
+                        {
+                            tool.armingTheTool();
+                            Console.WriteLine($"The {tool.Name} is armed, it will be ready in {tool.armament-DateTime.Now} minutes.");
                         }
                     }
                 }
