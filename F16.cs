@@ -10,13 +10,42 @@ namespace IDF.model
         }
 
 
-
-        // שולח לבדיחת תחמושת ודלק ומחזיר הודעה מתאימה
-        public override void Attack(int FlightHours, int AttacksNumber)
+        //בדיקת דלק 
+        public override bool fuelCheck(int FlightHours)
+        {
+            return (FuelInTheTank >= (FlightHours * 2400));
+        }
+        //תדלוק
+        public void RefuelingThePlane()
+        {
+            refueling = DateTime.Now.AddMinutes(15);
+            FuelInTheTank += (3900 - FuelInTheTank);
+        }
+        //בדיקת תחמושת
+        public override bool AmmunitionInspection(int AttacksNumber)
+        {
+            return (NumberOfAttacks >= AttacksNumber);
+        }
+        //חימוש
+        public void AircraftArmament()
+        {
+            armament = DateTime.Now.AddMinutes(10);
+            NumberOfAttacks += (8 - NumberOfAttacks);
+        }
+        //התקפה
+        public override bool Attack(int FlightHours, int AttacksNumber)
         {
             bool resulte = true;
-            fuel(FlightHours);
-            munitions(AttacksNumber);
+            if (!fuelCheck(FlightHours))
+            {
+                Console.WriteLine("44");
+                RefuelingThePlane();
+                Console.WriteLine(FuelInTheTank);
+            }
+            if (!AmmunitionInspection(AttacksNumber))
+            {
+                AircraftArmament();
+            }
             if (DateTime.Now < refueling)
             {
                 resulte = false;
@@ -29,44 +58,13 @@ namespace IDF.model
             }
             if (resulte)
             {
-                Console.WriteLine("The plane goes on the attack.");
                 FuelInTheTank -= (FlightHours * 2400);
                 NumberOfAttacks -= AttacksNumber;
             }
-        }
+            return resulte;
 
-        // מקבלת שעות טיסה נצרכות למשימה,בודקת אם יש מספיק דלק,במידה ולא שולחת לתדלוק
-        public bool fuel(int FlightHours)
-        {
-            if (FuelInTheTank >= (FlightHours * 2400))
-            {
-                return true;
-            }
-            else
-            {
-                refueling = DateTime.Now.AddMinutes(15);
-                FuelInTheTank += (3900 - FuelInTheTank);
-                return false;
-            }
 
         }
-
-        // מקבלת מספר התקפות שנצרכות למשימה,בודקת אם יש מספיק תחמושת,במידה ולא שולחת לחימוש
-        
-        public bool munitions(int AttacksNumber)
-        {
-            if (NumberOfAttacks >= AttacksNumber)
-            {
-                return true;
-            }
-            else
-            {
-                armament = DateTime.Now.AddMinutes(30);
-                NumberOfAttacks += (8 - NumberOfAttacks);
-                return false;
-            }
-        }
-
 
     }
 }
