@@ -101,18 +101,31 @@
 
             IntelligenceMessage PreferredTarget()
             {
-                int TheMostDangerous = 0;
-                IntelligenceMessage x = null;
-                foreach (var terrorist in Aman.IntelligenceReports)
+                int highestDangerLevel = 0;
+                IntelligenceMessage mostDangerousMessage = null;
+
+                foreach (var report in Aman.IntelligenceReports)
                 {
-                    if (terrorist.Target.TargetPrioritization() > TheMostDangerous)
+                    int dangerLevel = report.Target.TargetPrioritization();
+                    if (dangerLevel > highestDangerLevel)
                     {
-                        x = terrorist;
+                        highestDangerLevel = dangerLevel;
+                        mostDangerousMessage = report;
                     }
                 }
-                Console.WriteLine(x.Target.Name);
-                return x;
+
+                if (mostDangerousMessage != null)
+                {
+                    Console.WriteLine($"Most dangerous terrorist: {mostDangerousMessage.Target.Name}");
+                }
+                else
+                {
+                    Console.WriteLine("No terrorists left in the intelligence reports.");
+                }
+
+                return mostDangerousMessage;
             }
+
 
             void makingAnAttack(IntelligenceMessage perperredTarget)
             {
