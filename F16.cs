@@ -16,7 +16,7 @@ namespace IDF.model
             return (FuelInTheTank >= (FlightHours * 2400));
         }
         //תדלוק
-        public void RefuelingThePlane()
+        public override void RefuelingTheTool()
         {
             refueling = DateTime.Now.AddMinutes(15);
             FuelInTheTank += (3900 - FuelInTheTank);
@@ -27,7 +27,7 @@ namespace IDF.model
             return (NumberOfAttacks >= AttacksNumber);
         }
         //חימוש
-        public void AircraftArmament()
+        public override void armingTheTool()
         {
             armament = DateTime.Now.AddMinutes(10);
             NumberOfAttacks += (8 - NumberOfAttacks);
@@ -39,12 +39,12 @@ namespace IDF.model
             if (!fuelCheck(FlightHours))
             {
                 Console.WriteLine("44");
-                RefuelingThePlane();
+                RefuelingTheTool();
                 Console.WriteLine(FuelInTheTank);
             }
             if (!AmmunitionInspection(AttacksNumber))
             {
-                AircraftArmament();
+                armingTheTool();
             }
             if (DateTime.Now < refueling)
             {
