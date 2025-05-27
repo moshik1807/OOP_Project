@@ -4,16 +4,22 @@ namespace IDF.model
     public class F16 : AttackOptions
     {
 
-        public F16(string name, int numberOfAttacks, int fuelInTheTank, string efficiency  ) : base(name, numberOfAttacks, fuelInTheTank, efficiency )
+        public F16(string name, int numberOfAttacks, int fuelInTheTank, string efficiency) : base(name, numberOfAttacks, fuelInTheTank, efficiency)
         {
-
+            MaximumContainer = 3900;
+            MaximumShots = 10;
         }
 
+        // חישוב דלק לפי שעה
+        public override int HourlyFuelCalculation(int FlightHours)
+        {
+            return FlightHours * 1300;
+        }
 
         //בדיקת דלק 
         public override bool fuelCheck(int FlightHours)
         {
-            return (FuelInTheTank >= (FlightHours * 2400));
+            return (FuelInTheTank >= (FlightHours * 1300));
         }
         //תדלוק
         public override void RefuelingTheTool()
@@ -58,7 +64,7 @@ namespace IDF.model
             }
             if (resulte)
             {
-                FuelInTheTank -= (FlightHours * 2400);
+                FuelInTheTank -= (FlightHours * 1300);
                 NumberOfAttacks -= AttacksNumber;
             }
             return resulte;
