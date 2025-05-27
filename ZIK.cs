@@ -7,19 +7,26 @@ namespace IDF.model
 
         public ZIK(string name, int numberOfAttacks, int fuelInTheTank, string efficiency) : base(name, numberOfAttacks, fuelInTheTank, efficiency)
         {
+            MaximumContainer = 150;
+            MaximumShots = 3;
+        }
 
+        // חישוב דלק לפי שעה
+        public override int HourlyFuelCalculation(int FlightHours)
+        {
+            return FlightHours * 150;
         }
 
         //בדיקת דלק 
         public override bool fuelCheck(int FlightHours)
         {
-            return (FuelInTheTank >= (FlightHours * 200));
+            return (FuelInTheTank >= (FlightHours * 7));
         }
         //תדלוק
         public override void RefuelingTheTool()
         {
             refueling = DateTime.Now.AddMinutes(10);
-            FuelInTheTank += (2400 - FuelInTheTank);
+            FuelInTheTank += (150 - FuelInTheTank);
         }
         //בדיקת תחמושת
         public override bool AmmunitionInspection(int AttacksNumber)
@@ -56,7 +63,7 @@ namespace IDF.model
             }
             if (resulte)
             {
-                FuelInTheTank -= (FlightHours * 200);
+                FuelInTheTank -= (FlightHours * 7);
                 NumberOfAttacks -= AttacksNumber;
             }
             return resulte;

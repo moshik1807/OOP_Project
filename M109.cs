@@ -7,19 +7,26 @@ namespace IDF.model
 
         public M109(string name, int numberOfAttacks, int fuelInTheTank, string efficiency) : base(name, numberOfAttacks, fuelInTheTank, efficiency)
         {
-
+            MaximumContainer = 500;
+            MaximumShots = 40;
         }
+        // חישוב דלק לפי שעה
+        public override int HourlyFuelCalculation(int FlightHours)
+        {
+            return FlightHours * 500;
+        }
+
 
         //בדיקת דלק 
         public override bool fuelCheck(int FlightHours)
         {
-            return (FuelInTheTank >= (FlightHours * 100));
+            return (FuelInTheTank >= (FlightHours * 16));
         }
         //תדלוק
         public override void RefuelingTheTool()
         {
             refueling = DateTime.Now.AddMinutes(15);
-            FuelInTheTank += (450 - FuelInTheTank);
+            FuelInTheTank += (500 - FuelInTheTank);
         }
         //בדיקת תחמושת
         public override bool AmmunitionInspection(int AttacksNumber)
@@ -56,7 +63,7 @@ namespace IDF.model
             }
             if (resulte)
             {
-                FuelInTheTank -= (FlightHours * 100);
+                FuelInTheTank -= (FlightHours * 16);
                 NumberOfAttacks -= AttacksNumber;
             }
             return resulte;

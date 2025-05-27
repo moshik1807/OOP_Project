@@ -75,11 +75,12 @@
                     }
                 }
             }
+            // מחזיר את הטרוריסט עם הכי הרבה התראות
             void MaximumNotifications()
             {
                 Console.WriteLine(Aman.GetMostReportedTerrorist());
             }
-
+            // נותנת את המצב הנוכחי של כלי התקיפה מבחינת דלק ותחמושת
             void AvailabilityOfTools()
             {
                 foreach (var tool in idf.AttackTool)
@@ -98,7 +99,7 @@
                     }
                 }
             }
-
+            // מחזירה את המחבל המסוכן ביותר
             IntelligenceMessage PreferredTarget()
             {
                 int highestDangerLevel = 0;
@@ -126,56 +127,71 @@
                 return mostDangerousMessage;
             }
 
-
+            // לוקחת את המחבל המסוכן מבקשת שעות טיסה וכמות תחמושת נצרכת,במידה ואין מספיק שולחת לתדלוק\חימוש ובמידה ויש תוקפת ומורידה את הדלק והתחמושת מהכלי ומסירה את המחבל מהרשימה
             void makingAnAttack(IntelligenceMessage perperredTarget)
             {
-                List<AttackOptions> newList = new List<AttackOptions>();
-                Console.WriteLine("enter the amount of atteck time");
-                int attackTime = int.Parse(Console.ReadLine());
-                Console.WriteLine("enter the amoount of ammunition for the  attack");
-                int shots = int.Parse(Console.ReadLine());
-                foreach (var tool in idf.AttackTool)
+                if (perperredTarget != null)
                 {
-                    if (tool.Efficiency.Contains(perperredTarget.LastKnownLocation))
+                    List<AttackOptions> newList = new List<AttackOptions>();
+
+                    Console.WriteLine("enter the amount of atteck time");
+                    int attackTime = int.Parse(Console.ReadLine());
+
+                    Console.WriteLine("enter the amoount of ammunition for the  attack");
+                    int shots = int.Parse(Console.ReadLine());
+
+                    foreach (var tool in idf.AttackTool)
                     {
-                   
-                        if (tool.fuelCheck(attackTime) && tool.AmmunitionInspection(shots))
+                        if (tool.Efficiency.Contains(perperredTarget.LastKnownLocation))
                         {
-                            if (((tool.refueling<=DateTime.Now || tool.refueling == null) && (tool.armament<=DateTime.Now || tool.armament == null)))
+                            if (tool.fuelCheck(attackTime) && tool.AmmunitionInspection(shots))
                             {
-                                newList.Add(tool);
-
+                                if (((tool.refueling <= DateTime.Now || tool.refueling == null) && (tool.armament <= DateTime.Now || tool.armament == null)))
+                                {
+                                    newList.Add(tool);
+                                }
                             }
-                        }
-                        if(!tool.fuelCheck(attackTime))
-                        {
-                            tool.RefuelingTheTool();
-                            Console.WriteLine($"The {tool.Name} is refueling. It will be ready in {tool.refueling-DateTime.Now} minutes.");
-                        }
-                        if(!tool.AmmunitionInspection(shots))
-                        {
-                            tool.armingTheTool();
-                            Console.WriteLine($"The {tool.Name} is armed, it will be ready in {tool.armament-DateTime.Now} minutes.");
-                        }
-                    }
-                }
-                if (newList.Count == 0)
-                {
-                    Console.WriteLine("no atteck option available");
+                            else
+                            {
+                                if (tool.MaximumContainer > tool.HourlyFuelCalculation(attackTime))
+                                {
+                                    if (!tool.fuelCheck(attackTime))
+                                    {
+                                        tool.RefuelingTheTool();
+                                        Console.WriteLine($"The {tool.Name} is refueling. It will be ready in {tool.refueling - DateTime.Now} minutes.");
+                                    }
+                                }
+                                if (tool.MaximumShots > shots)
+                                {
+                                    if (!tool.AmmunitionInspection(shots))
+                                    {
+                                        tool.armingTheTool();
+                                        Console.WriteLine($"The {tool.Name} is armed, it will be ready in {tool.armament - DateTime.Now} minutes.");
+                                    }
+                                }
+                            }
 
-                }
-                else
-                {
-                    for (int i = 0; i <= newList.Count - 1; i++)
-                    {
-                        Console.WriteLine($"to attack with a {newList[i].Name} press {i}");
+                        }
                     }
-                    int x = int.Parse(Console.ReadLine());
-                    newList[x].Attack(attackTime, shots);
-                    perperredTarget.Target.IsAlive = false;
-                    Aman.IntelligenceReports.Remove(perperredTarget);
-                    Console.WriteLine($"{perperredTarget.Target.Name} is Eliminated");
-                    newList = null;
+                    if (newList.Count == 0)
+                    {
+                        Console.WriteLine("no atteck option available");
+
+                    }
+                    else
+                    {
+                        for (int i = 0; i <= newList.Count - 1; i++)
+                        {
+                            Console.WriteLine($"to attack with a {newList[i].Name} press {i}");
+                        }
+                        int x = int.Parse(Console.ReadLine());
+                        newList[x].Attack(attackTime, shots);
+                        perperredTarget.Target.IsAlive = false;
+                        Aman.IntelligenceReports.Remove(perperredTarget);
+                        Console.WriteLine($"{perperredTarget.Target.Name} is Eliminated");
+                        newList = null;
+                    }
+                
                 }
 
             }
