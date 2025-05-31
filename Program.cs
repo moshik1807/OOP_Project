@@ -4,6 +4,8 @@
     {
         static void Main(string[] args)
         {
+            int travelTime = 0;
+
             // יצירת אובייקטים של כלי תקיפה והכנסה לרשימה של כלי תקיפה בצהל
             F16 f16 = new F16("f16", 10, 5000, "building, house");
             ZIK zik = new ZIK("zik", 3, 2400, "open space, car");
@@ -24,12 +26,6 @@
             hamas.AddTerrorist(t2);
             hamas.AddTerrorist(t3);
 
-            //foreach (Terrorist t in hamas.Terrorists)
-            //{
-            //    Console.WriteLine(t.Details());
-            //    Console.WriteLine("-------------");
-            //}
-
             IntelligenceMessage intel1 = new IntelligenceMessage(t1, "house", DateTime.Now);
             IntelligenceMessage intel2 = new IntelligenceMessage(t2, "open space", DateTime.Now);
             IntelligenceMessage intel3 = new IntelligenceMessage(t3, "house", DateTime.Now);
@@ -38,6 +34,7 @@
             Aman.AddReport(intel1);
             Aman.AddReport(intel2);
             Aman.AddReport(intel3);
+
             Menue();
 
             void Menue()
@@ -66,8 +63,11 @@
                         case 3:
                             PreferredTarget();
                             break;
+                        //case 4:
+                        //    makingAnAttack(PreferredTarget());
+                        //    break;
                         case 4:
-                            makingAnAttack(PreferredTarget());
+                            Attack(UsefulTools(idf.AttackTool, PreferredTarget()), PreferredTarget());
                             break;
                         case 5:
                             exis = false;
@@ -80,6 +80,8 @@
             {
                 Console.WriteLine(Aman.GetMostReportedTerrorist());
             }
+
+
             // נותנת את המצב הנוכחי של כלי התקיפה מבחינת דלק ותחמושת
             void AvailabilityOfTools()
             {
@@ -89,16 +91,18 @@
                     {
                         Console.WriteLine($"The {tool.Name} at the refueling station will be ready in {tool.refueling - DateTime.Now} minutes.");
                     }
-                    if (tool.armament > DateTime.Now)
-                    {
-                        Console.WriteLine($" The {tool.Name} with its armament will be ready in {tool.armament - DateTime.Now} minutes.");
-                    }
+                    //if (tool.armament > DateTime.Now)
+                    //{
+                    //    Console.WriteLine($" The {tool.Name} with its armament will be ready in {tool.armament - DateTime.Now} minutes.");
+                    //}
                     else
                     {
                         Console.WriteLine($"The {tool.Name} has {tool.FuelInTheTank} liters of fuel and {tool.NumberOfAttacks} shots.");
                     }
                 }
             }
+
+
             // מחזירה את המחבל המסוכן ביותר
             IntelligenceMessage PreferredTarget()
             {
@@ -127,78 +131,122 @@
                 return mostDangerousMessage;
             }
 
-            // לוקחת את המחבל המסוכן מבקשת שעות טיסה וכמות תחמושת נצרכת,במידה ואין מספיק שולחת לתדלוק\חימוש ובמידה ויש תוקפת ומורידה את הדלק והתחמושת מהכלי ומסירה את המחבל מהרשימה
-            void makingAnAttack(IntelligenceMessage perperredTarget)
+
+            ////לוקחת את המחבל המסוכן מבקשת שעות טיסה וכמות תחמושת נצרכת, במידה ואין מספיק שולחת לתדלוק\חימוש ובמידה ויש תוקפת ומורידה את הדלק והתחמושת מהכלי ומסירה את המחבל מהרשימה
+            //void makingAnAttack(IntelligenceMessage perperredTarget)
+            //{
+            //    if (perperredTarget != null)
+            //    {
+            //        List<AttackOptions> newList = new List<AttackOptions>();
+
+            //        Console.WriteLine("enter the amount of atteck time");
+            //        int attackTime = int.Parse(Console.ReadLine());
+
+            //        Console.WriteLine("enter the amoount of ammunition for the  attack");
+            //        int shots = int.Parse(Console.ReadLine());
+
+            //        foreach (var tool in idf.AttackTool)
+            //        {
+            //            if (tool.Efficiency.Contains(perperredTarget.LastKnownLocation))
+            //            {
+            //                if (tool.fuelCheck(attackTime) && tool.AmmunitionInspection(shots))
+            //                {
+            //                    if (((tool.refueling <= DateTime.Now || tool.refueling == null) && (tool.armament <= DateTime.Now || tool.armament == null)))
+            //                    {
+            //                        newList.Add(tool);
+            //                    }
+            //                }
+            //                else
+            //                {
+            //                    if (tool.MaximumContainer > tool.HourlyFuelCalculation(attackTime))
+            //                    {
+            //                        if (!tool.fuelCheck(attackTime))
+            //                        {
+            //                            tool.RefuelingTheTool();
+            //                            Console.WriteLine($"The {tool.Name} is refueling. It will be ready in {tool.refueling - DateTime.Now} minutes.");
+            //                        }
+            //                    }
+            //                    if (tool.MaximumShots > shots)
+            //                    {
+            //                        if (!tool.AmmunitionInspection(shots))
+            //                        {
+            //                            tool.armingTheTool();
+            //                            Console.WriteLine($"The {tool.Name} is armed, it will be ready in {tool.armament - DateTime.Now} minutes.");
+            //                        }
+            //                    }
+            //                }
+            //            }
+            //        }
+            //        if (newList.Count == 0)
+            //        {
+            //            Console.WriteLine("no atteck option available");
+            //        }
+            //        else
+            //        {
+            //            for (int i = 0; i <= newList.Count - 1; i++)
+            //            {
+            //                Console.WriteLine($"to attack with a {newList[i].Name} press {i}");
+            //            }
+            //            int x = int.Parse(Console.ReadLine());
+            //            newList[x].Attack(attackTime, shots);
+            //            perperredTarget.Target.IsAlive = false;
+            //            Aman.IntelligenceReports.Remove(perperredTarget);
+            //            Console.WriteLine($"{perperredTarget.Target.Name} is Eliminated");
+            //            newList = null;
+            //        }
+            //    }
+            //}
+            // מקבלת שעות נסיעה מהמשתמש
+            //int travelTime = 0;
+            int GetTravelTime()
             {
-                if (perperredTarget != null)
+                Console.WriteLine("enter the travel time");
+                travelTime = Convert.ToInt32(Console.ReadLine());
+                return travelTime;
+            }
+
+
+            
+            List<AttackOptions> UsefulTools(List<AttackOptions> tools, IntelligenceMessage perperredTarget)
+            {
+                List<AttackOptions> newTols = new List<AttackOptions>();
+                int travelTime = GetTravelTime();
+                bool resulte = true;
+                foreach (var tool in tools)
                 {
-                    List<AttackOptions> newList = new List<AttackOptions>();
-
-                    Console.WriteLine("enter the amount of atteck time");
-                    int attackTime = int.Parse(Console.ReadLine());
-
-                    Console.WriteLine("enter the amoount of ammunition for the  attack");
-                    int shots = int.Parse(Console.ReadLine());
-
-                    foreach (var tool in idf.AttackTool)
+                    if (tool.Efficiency.Contains(perperredTarget.LastKnownLocation))
                     {
-                        if (tool.Efficiency.Contains(perperredTarget.LastKnownLocation))
+                        if (tool.A(travelTime))
                         {
-                            if (tool.fuelCheck(attackTime) && tool.AmmunitionInspection(shots))
-                            {
-                                if (((tool.refueling <= DateTime.Now || tool.refueling == null) && (tool.armament <= DateTime.Now || tool.armament == null)))
-                                {
-                                    newList.Add(tool);
-                                }
-                            }
-                            else
-                            {
-                                if (tool.MaximumContainer > tool.HourlyFuelCalculation(attackTime))
-                                {
-                                    if (!tool.fuelCheck(attackTime))
-                                    {
-                                        tool.RefuelingTheTool();
-                                        Console.WriteLine($"The {tool.Name} is refueling. It will be ready in {tool.refueling - DateTime.Now} minutes.");
-                                    }
-                                }
-                                if (tool.MaximumShots > shots)
-                                {
-                                    if (!tool.AmmunitionInspection(shots))
-                                    {
-                                        tool.armingTheTool();
-                                        Console.WriteLine($"The {tool.Name} is armed, it will be ready in {tool.armament - DateTime.Now} minutes.");
-                                    }
-                                }
-                            }
-
+                            newTols.Add(tool);
                         }
                     }
-                    if (newList.Count == 0)
-                    {
-                        Console.WriteLine("no atteck option available");
+                }
+                return newTols;
+            }
 
-                    }
-                    else
+
+
+
+            void Attack(List<AttackOptions> tools, IntelligenceMessage Target)
+            {
+                if (tools != null)
+                {
+                    for (int i = 0; i < tools.Count; i++)
                     {
-                        for (int i = 0; i <= newList.Count - 1; i++)
-                        {
-                            Console.WriteLine($"to attack with a {newList[i].Name} press {i}");
-                        }
-                        int x = int.Parse(Console.ReadLine());
-                        newList[x].Attack(attackTime, shots);
-                        perperredTarget.Target.IsAlive = false;
-                        Aman.IntelligenceReports.Remove(perperredTarget);
-                        Console.WriteLine($"{perperredTarget.Target.Name} is Eliminated");
-                        newList = null;
+                        Console.WriteLine($"to attack with {tools[i].Name} pres {i}");
                     }
-                
+                    int choice = Convert.ToInt32(Console.ReadLine());
+                    tools[choice].F(travelTime);
+                    Aman.IntelligenceReports.Remove(Target);
+                    Console.WriteLine($"{Target.Target.Name} is Eliminated");
+                }
+                else
+                {
+                    Console.WriteLine("2222");
                 }
 
             }
-
         }
-
-
     }
-
 }
