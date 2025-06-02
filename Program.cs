@@ -7,10 +7,9 @@
             int travelTime = 0;
 
             // יצירת אובייקטים של כלי תקיפה והכנסה לרשימה של כלי תקיפה בצהל
-            F16 f16 = new F16("f16", 10, 5000, "building, house");
-            ZIK zik = new ZIK("zik", 3, 2400, "open space, car");
-            M109 m109 = new M109("m109", 40, 450, "open space");
-            Idf idf = new Idf([f16, zik, m109]);
+            toolsFactory.CreatAttackTools();
+            Idf idf = new Idf(toolsFactory.toolsList);
+
 
             List<string> weaponst1 = new List<string> { "guns", "M16" };
             Terrorist t1 = new Terrorist("Abu-Yair", 4, true, weaponst1);

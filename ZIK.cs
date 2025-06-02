@@ -40,33 +40,10 @@ namespace IDF.model
             NumberOfAttacks += (3 - NumberOfAttacks);
         }
         //התקפה
-        public override bool Attack(int FlightHours, int AttacksNumber)
+        public override void Attack(int FlightHours, int AttacksNumber)
         {
-            bool resulte = true;
-            if (!fuelCheck(FlightHours))
-            {
-                RefuelingTheTool();
-            }
-            if (!AmmunitionInspection(AttacksNumber))
-            {
-                armingTheTool();
-            }
-            if (DateTime.Now < refueling)
-            {
-                resulte = false;
-                Console.WriteLine($"The zik remains in refueling for {refueling - DateTime.Now} minutes.");
-            }
-            if (DateTime.Now < armament)
-            {
-                resulte = false;
-                Console.WriteLine($"The zik is arming and remains {armament - DateTime.Now} minutes.");
-            }
-            if (resulte)
-            {
-                FuelInTheTank -= (FlightHours * 7);
-                NumberOfAttacks -= AttacksNumber;
-            }
-            return resulte;
+             FuelInTheTank -= (FlightHours * 7);
+             NumberOfAttacks -= AttacksNumber;
         }
     }
 }
