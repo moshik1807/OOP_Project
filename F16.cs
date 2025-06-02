@@ -6,8 +6,9 @@ namespace IDF.model
 
         public F16(string name, int numberOfAttacks, int fuelInTheTank, string efficiency) : base(name, numberOfAttacks, fuelInTheTank, efficiency)
         {
-            MaximumContainer = 3900;
+            MaximumContainer = 5000;
             MaximumShots = 10;
+
         }
 
         // חישוב דלק לפי שעה
@@ -44,7 +45,6 @@ namespace IDF.model
             bool resulte = true;
             if (!fuelCheck(FlightHours))
             {
-                Console.WriteLine("44");
                 RefuelingTheTool();
                 Console.WriteLine(FuelInTheTank);
             }
@@ -68,9 +68,6 @@ namespace IDF.model
                 NumberOfAttacks -= AttacksNumber;
             }
             return resulte;
-
-
         }
-
     }
 }

@@ -10,7 +10,7 @@ namespace IDF.model
             MaximumContainer = 500;
             MaximumShots = 40;
         }
-        // חישוב דלק לפי שעה
+        //חישוב דלק לפי שעה
         public override int HourlyFuelCalculation(int FlightHours)
         {
             return FlightHours * 500;
@@ -67,10 +67,7 @@ namespace IDF.model
                 NumberOfAttacks -= AttacksNumber;
             }
             return resulte;
-
-
         }
-
     }
 }
 

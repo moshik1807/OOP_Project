@@ -67,11 +67,6 @@ namespace IDF.model
                 NumberOfAttacks -= AttacksNumber;
             }
             return resulte;
-
-
-
-
-
         }
     }
 }
